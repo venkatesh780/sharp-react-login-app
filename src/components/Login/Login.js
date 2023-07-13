@@ -15,12 +15,10 @@ const emailReducer = (state, action) => {
 };
 
 const passwordReducer = (state, action) => {
-  console.log("passreducerfun");
   if (action.type === "USER_PASS") {
-    console.log(action.type);
     return { value: action.val, isValid: action.val.length > 6 };
   }
-  if (action.type === "INPUT_BLUR") {
+  if (action.type === "PASS_BLUR") {
     return { value: state.value, isValid: state.value.length > 6 };
   }
   return { value: "", isValid: false };
@@ -43,10 +41,10 @@ const Login = (props) => {
   };
 
   const passwordChangeHandler = (event) => {
-    dispatchPass({ type: "USER_PASS", val: event.taget.value });
-    // setFormIsValid(
-    //   emailState.isValid.includes("@") && event.target.value.trim().length > 6
-    // );
+    dispatchPass({ type: "USER_PASS", val: event.target.value });
+    setFormIsValid(
+      emailState.value.includes("@") && event.target.value.trim().length > 6
+    );
   };
 
   const validateEmailHandler = () => {
@@ -54,7 +52,7 @@ const Login = (props) => {
   };
 
   const validatePasswordHandler = () => {
-    dispatchPass({ type: "INPUT_BLUR" });
+    dispatchPass({ type: "PASS_BLUR" });
   };
 
   const submitHandler = (event) => {
